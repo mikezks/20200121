@@ -18,15 +18,21 @@
         <div class="form-group" *ngIf="loading">
             <label>...loading...</label>
         </div>
+
+        <div class="form-group">
+        <label>Online: {{ online$ | async }}</label>
+        </div>
   
     </div>
 </div>
 
 <div class="card"
-    *ngIf="flights$ | async as flights">
+    *ngIf="{
+        flight: flights$ | async
+    } as componentData">
     <table
         class="table table-contensed"
-        *ngIf="flights?.length">
+        *ngIf="componentData.flights?.length">
         <thead>
             <tr>
                 <th>Id</th>
@@ -37,7 +43,7 @@
         </thead>
         <tbody>
             <tr
-                *ngFor="let f of flights">
+                *ngFor="let f of componentData.flights">
                 <td>{{f.id}}</td>
                 <td>{{f.from }}</td>
                 <td>{{f.to }}</td>
